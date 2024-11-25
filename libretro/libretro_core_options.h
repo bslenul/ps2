@@ -11,6 +11,26 @@
 #include "libretro_core_options_intl.h"
 #endif
 
+#define PERCENT_80_200 \
+    { "80%", NULL },  { "81%", NULL },  { "82%", NULL },  { "83%", NULL },  { "84%", NULL },  { "85%", NULL },  { "86%", NULL }, \
+    { "87%", NULL },  { "88%", NULL },  { "89%", NULL },  { "90%", NULL },  { "91%", NULL },  { "92%", NULL },  { "93%", NULL }, \
+    { "94%", NULL },  { "95%", NULL },  { "96%", NULL },  { "97%", NULL },  { "98%", NULL },  { "99%", NULL }, { "100%", NULL }, \
+   { "101%", NULL }, { "102%", NULL }, { "103%", NULL }, { "104%", NULL }, { "105%", NULL }, { "106%", NULL }, { "107%", NULL }, \
+   { "108%", NULL }, { "109%", NULL }, { "110%", NULL }, { "111%", NULL }, { "112%", NULL }, { "113%", NULL }, { "114%", NULL }, \
+   { "115%", NULL }, { "116%", NULL }, { "117%", NULL }, { "118%", NULL }, { "119%", NULL }, { "120%", NULL }, { "121%", NULL }, \
+   { "122%", NULL }, { "123%", NULL }, { "124%", NULL }, { "125%", NULL }, { "126%", NULL }, { "127%", NULL }, { "128%", NULL }, \
+   { "129%", NULL }, { "130%", NULL }, { "131%", NULL }, { "132%", NULL }, { "133%", NULL }, { "134%", NULL }, { "135%", NULL }, \
+   { "136%", NULL }, { "137%", NULL }, { "138%", NULL }, { "139%", NULL }, { "140%", NULL }, { "141%", NULL }, { "142%", NULL }, \
+   { "143%", NULL }, { "144%", NULL }, { "145%", NULL }, { "146%", NULL }, { "147%", NULL }, { "148%", NULL }, { "149%", NULL }, \
+   { "150%", NULL }, { "151%", NULL }, { "152%", NULL }, { "153%", NULL }, { "154%", NULL }, { "155%", NULL }, { "156%", NULL }, \
+   { "157%", NULL }, { "158%", NULL }, { "159%", NULL }, { "160%", NULL }, { "161%", NULL }, { "162%", NULL }, { "163%", NULL }, \
+   { "164%", NULL }, { "165%", NULL }, { "166%", NULL }, { "167%", NULL }, { "168%", NULL }, { "169%", NULL }, { "170%", NULL }, \
+   { "171%", NULL }, { "172%", NULL }, { "173%", NULL }, { "174%", NULL }, { "175%", NULL }, { "176%", NULL }, { "177%", NULL }, \
+   { "178%", NULL }, { "179%", NULL }, { "180%", NULL }, { "181%", NULL }, { "182%", NULL }, { "183%", NULL }, { "184%", NULL }, \
+   { "185%", NULL }, { "186%", NULL }, { "187%", NULL }, { "188%", NULL }, { "189%", NULL }, { "190%", NULL }, { "191%", NULL }, \
+   { "192%", NULL }, { "193%", NULL }, { "194%", NULL }, { "195%", NULL }, { "196%", NULL }, { "197%", NULL }, { "198%", NULL }, \
+   { "199%", NULL }, { "200%", NULL }
+
 /*
  ********************************
  * VERSION: 2.0
@@ -812,59 +832,135 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "disabled"
    },
    {
+      "pcsx2_multitap1",
+      "Input > Enable Multitap on Port 1 (Restart)",
+      "Enable Multitap on Port 1 (Restart)",
+      "When enabled the PS2 ports 1-A, 2, 1-B, 1-C and 1-D will be assigned to Libretro ports 1, 2, 3, 4 and 5 respectively." \
+      "\nNOTE: When using only multitap 1, some games might ignore port 2 and consider Libretro port 3 (i.e. PS2 port 1-B) as player 2 instead. It is not required but if your frontend has it, the 'Mapped Port' setting from the 'Controls' menu can be useful to rearrange players order.",
+      NULL,
+      "input",
+      {
+         { "disabled", NULL },
+         { "enabled", NULL },
+         { NULL, NULL },
+      },
+      "disabled"
+   },
+   {
+      "pcsx2_multitap2",
+      "Input > Enable Multitap on Port 2 (Restart)",
+      "Enable Multitap on Port 2 (Restart)",
+      "When enabled the PS2 ports 1, 2-A, 2-B, 2-C and 2-D will be assigned to Libretro ports 1, 2, 3, 4 and 5 respectively." \
+      "\nNOTE: When using BOTH multitaps 1 and 2 the PS2 ports 1-A, 2-A, 1-B, 1-C, 1-D, 2-B, 2-C and 2-D will be assigned to Libretro ports 1, 2, 3, 4, 5, 6, 7 and 8 respectively.",
+      NULL,
+      "input",
+      {
+         { "disabled", NULL },
+         { "enabled", NULL },
+         { NULL, NULL },
+      },
+      "disabled"
+   },
+   {
       "pcsx2_axis_scale1",
-      "Input > Port 1: Analog Sensitivity",
-      "Port 1: Analog Sensitivity",
+      "Input > Port 1 > Analog Sensitivity",
+      "Port 1 > Analog Sensitivity",
       NULL,
       NULL,
       "input",
       {
-         { "50%", NULL },
-         { "60%", NULL },
-         { "70%", NULL },
-         { "80%", NULL },
-         { "90%", NULL },
-         { "100%", NULL },
-         { "110%", NULL },
-         { "120%", NULL },
-         { "130%", NULL },
-         { "133%", NULL },
-         { "140%", NULL },
-         { "150%", NULL },
-         { "160%", NULL },
-         { "170%", NULL },
-         { "180%", NULL },
-         { "190%", NULL },
-         { "200%", NULL },
+         PERCENT_80_200,
          { NULL, NULL },
       },
       "133%"
    },
    {
       "pcsx2_axis_scale2",
-      "Input > Port 2: Analog Sensitivity",
-      "Port 2: Analog Sensitivity",
+      "Input > Port 2 > Analog Sensitivity",
+      "Port 2 > Analog Sensitivity",
       NULL,
       NULL,
       "input",
       {
-         { "50%", NULL },
-         { "60%", NULL },
-         { "70%", NULL },
-         { "80%", NULL },
-         { "90%", NULL },
-         { "100%", NULL },
-         { "110%", NULL },
-         { "120%", NULL },
-         { "130%", NULL },
-         { "133%", NULL },
-         { "140%", NULL },
-         { "150%", NULL },
-         { "160%", NULL },
-         { "170%", NULL },
-         { "180%", NULL },
-         { "190%", NULL },
-         { "200%", NULL },
+         PERCENT_80_200,
+         { NULL, NULL },
+      },
+      "133%"
+   },
+   {
+      "pcsx2_axis_scale3",
+      "Input > Port 3 > Analog Sensitivity",
+      "Port 3 > Analog Sensitivity",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_80_200,
+         { NULL, NULL },
+      },
+      "133%"
+   },
+   {
+      "pcsx2_axis_scale4",
+      "Input > Port 4 > Analog Sensitivity",
+      "Port 4 > Analog Sensitivity",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_80_200,
+         { NULL, NULL },
+      },
+      "133%"
+   },
+   {
+      "pcsx2_axis_scale5",
+      "Input > Port 5 > Analog Sensitivity",
+      "Port 5 > Analog Sensitivity",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_80_200,
+         { NULL, NULL },
+      },
+      "133%"
+   },
+   {
+      "pcsx2_axis_scale6",
+      "Input > Port 6 > Analog Sensitivity",
+      "Port 6 > Analog Sensitivity",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_80_200,
+         { NULL, NULL },
+      },
+      "133%"
+   },
+   {
+      "pcsx2_axis_scale7",
+      "Input > Port 7 > Analog Sensitivity",
+      "Port 7 > Analog Sensitivity",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_80_200,
+         { NULL, NULL },
+      },
+      "133%"
+   },
+   {
+      "pcsx2_axis_scale8",
+      "Input > Port 8 > Analog Sensitivity",
+      "Port 8 > Analog Sensitivity",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_80_200,
          { NULL, NULL },
       },
       "133%"

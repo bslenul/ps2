@@ -90,8 +90,6 @@ struct BiosInfo
 	std::string description;
 };
 
-float pad_axis_scale[2];
-
 static std::vector<BiosInfo> bios_info;
 static std::string setting_bios;
 static std::string setting_renderer;
@@ -138,6 +136,8 @@ static bool setting_unscaled_palette_draw      = false;
 static bool setting_force_sprite_position      = false;
 static bool setting_pcrtc_screen_offsets       = false;
 static bool setting_disable_interlace_offset   = false;
+static bool setting_multitap1                  = false;
+static bool setting_multitap2                  = false;
 
 static bool setting_show_parallel_options      = true;
 static bool setting_show_gsdx_options          = true;
@@ -150,6 +150,7 @@ static bool update_option_visibility(void)
 {
 	struct retro_variable var;
 	struct retro_core_option_display option_display;
+	static bool first_run               = true;
 	bool updated                        = false;
 
 	bool show_parallel_options_prev     = setting_show_parallel_options;
@@ -306,6 +307,29 @@ static bool update_option_visibility(void)
 		updated                = true;
 	}
 
+	if (first_run)
+	{
+		// Show/hide input options depending on multitaps being ON/OFF
+		// Players 1 and 2 options always visible
+		char input_settings[32];
+		for (int i = 0; i < 6; ++i)
+		{
+			if (i < 3 && num_players != 2)
+				option_display.visible = true;
+			else if (i > 2 && num_players == 8)
+				option_display.visible = true;
+			else
+				option_display.visible = false;
+
+			option_display.key = input_settings;
+			snprintf(input_settings, sizeof(input_settings), "pcsx2_axis_scale%d", i + 3);
+			environ_cb(RETRO_ENVIRONMENT_SET_CORE_OPTIONS_DISPLAY, &option_display);
+		}
+
+		updated   = true;
+		first_run = false;
+	}
+
 	return updated;
 }
 
@@ -354,6 +378,36 @@ static void check_variables(bool first_run)
 		{
 			bool fast_cdvd = !strcmp(var.value, "enabled");
 			s_settings_interface.SetBoolValue("EmuCore/Speedhacks", "fastCDVD", fast_cdvd);
+		}
+
+		var.key = "pcsx2_multitap1";
+		if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
+		{
+			setting_multitap1 = !strcmp(var.value, "enabled");
+			s_settings_interface.SetBoolValue("Pad", "MultitapPort1", setting_multitap1);
+		}
+
+		var.key = "pcsx2_multitap2";
+		if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
+		{
+			setting_multitap2 = !strcmp(var.value, "enabled");
+			s_settings_interface.SetBoolValue("Pad", "MultitapPort2", setting_multitap2);
+		}
+
+		if (setting_multitap1 && setting_multitap2)
+		{
+			num_players = 8;
+			multitaps = MTAP_BOTH;
+		}
+		else if (setting_multitap1 || setting_multitap2)
+		{
+			num_players = 5;
+			multitaps = setting_multitap1 ? MTAP_1 : MTAP_2;
+		}
+		else
+		{
+			num_players = 2;
+			multitaps = MTAP_NONE;
 		}
 	}
 
@@ -1066,13 +1120,14 @@ static void check_variables(bool first_run)
 		}
 	}
 
-	var.key = "pcsx2_axis_scale1";
-	if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
-		pad_axis_scale[0] = atof(var.value) / 100;
-
-	var.key = "pcsx2_axis_scale2";
-	if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
-		pad_axis_scale[1] = atof(var.value) / 100;
+	char input_settings[32];
+	for (int i = 0; i < num_players; ++i)
+	{
+		var.key = input_settings;
+		snprintf(input_settings, sizeof(input_settings), "pcsx2_axis_scale%d", i + 1);
+		if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
+			pad_settings[i].axis_scale = atof(var.value) / 100;
+	}
 
 	update_option_visibility();
 

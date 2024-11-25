@@ -125,3 +125,20 @@ s32 PADfreeze(FreezeAction mode, freezeData* data);
 u8 PADstartPoll(int _port, int _slot);
 u8 PADpoll(u8 value);
 bool PADcomplete(void);
+
+enum Multitaps
+{
+	MTAP_NONE = 0,
+	MTAP_1,
+	MTAP_2,
+	MTAP_BOTH
+};
+
+struct PadSettings
+{
+	float axis_scale = 1.33f;
+};
+
+extern PadSettings pad_settings[8];
+extern Multitaps multitaps;
+extern u32 num_players;
