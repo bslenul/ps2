@@ -202,6 +202,36 @@ static int keymap[] =
 	RETRO_DEVICE_ID_JOYPAD_LEFT,   // PAD_LEFT
 };
 
+static void process_analog(int &axis_x, int &axis_y, float sensitivity, u16 deadzone)
+{
+	constexpr float MAX_RANGE = 32767.0f;
+
+	if (deadzone > 0)
+	{
+		float magnitude = std::sqrt(axis_x * axis_x + axis_y * axis_y);
+		magnitude = std::min(magnitude, MAX_RANGE);
+
+		if (magnitude > deadzone)
+		{
+			// If we're past the deadzone, scale our values so we can still
+			// use slow movements when the stick is not fully pushed
+			const float scaled_mag = (magnitude - deadzone) / (MAX_RANGE - deadzone);
+			axis_x *= scaled_mag;
+			axis_y *= scaled_mag;
+		}
+		else
+		{
+			axis_x = 0;
+			axis_y = 0;
+			return;
+		}
+	}
+
+	// Apply sensitivity
+	axis_x = static_cast<int>(std::clamp(axis_x * sensitivity, -MAX_RANGE, MAX_RANGE));
+	axis_y = static_cast<int>(std::clamp(axis_y * sensitivity, -MAX_RANGE, MAX_RANGE));
+}
+
 namespace Input
 {
 	void Init()
@@ -317,6 +347,7 @@ namespace Input
 				u32 adjusted_port   = (multitaps == MTAP_2 && ext_port > 4) ? ext_port - 3 : ext_port;
 				u32 mask            = input_cb(adjusted_port, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_MASK);
 				u32 new_button_mask = 0xFFFF0000;
+				const auto &conf    = pad_settings[adjusted_port];
 
 				for (int i = 0; i < 16; i++)
 					new_button_mask |= !(mask & (1 << keymap[i])) << i;
@@ -326,6 +357,11 @@ namespace Input
 				pad_ly[ext_port]      = input_cb(adjusted_port, RETRO_DEVICE_ANALOG, RETRO_DEVICE_INDEX_ANALOG_LEFT, RETRO_DEVICE_ID_ANALOG_Y);
 				pad_rx[ext_port]      = input_cb(adjusted_port, RETRO_DEVICE_ANALOG, RETRO_DEVICE_INDEX_ANALOG_RIGHT, RETRO_DEVICE_ID_ANALOG_X);
 				pad_ry[ext_port]      = input_cb(adjusted_port, RETRO_DEVICE_ANALOG, RETRO_DEVICE_INDEX_ANALOG_RIGHT, RETRO_DEVICE_ID_ANALOG_Y);
+
+				// Apply axis deadzone and sensitivity
+				process_analog(pad_lx[ext_port], pad_ly[ext_port], conf.axis_scale, conf.axis_deadzone);
+				process_analog(pad_rx[ext_port], pad_ry[ext_port], conf.axis_scale, conf.axis_deadzone);
+
 				pads[port][slot].rumble(adjusted_port);
 			}
 		}
@@ -664,10 +700,10 @@ u8 PADpoll(u8 value)
 
 					if (pad->mode != MODE_DIGITAL) // ANALOG || DS2 native
 					{
-						query.response[5] = static_cast<u8>(std::clamp(0x80 + (pad_rx[ext_port] >> 8) * pad_settings[ext_port].axis_scale, 0.f, 255.f));
-						query.response[6] = static_cast<u8>(std::clamp(0x80 + (pad_ry[ext_port] >> 8) * pad_settings[ext_port].axis_scale, 0.f, 255.f));
-						query.response[7] = static_cast<u8>(std::clamp(0x80 + (pad_lx[ext_port] >> 8) * pad_settings[ext_port].axis_scale, 0.f, 255.f));
-						query.response[8] = static_cast<u8>(std::clamp(0x80 + (pad_ly[ext_port] >> 8) * pad_settings[ext_port].axis_scale, 0.f, 255.f));
+						query.response[5] = 0x80 + (pad_rx[ext_port] >> 8);
+						query.response[6] = 0x80 + (pad_ry[ext_port] >> 8);
+						query.response[7] = 0x80 + (pad_lx[ext_port] >> 8);
+						query.response[8] = 0x80 + (pad_ly[ext_port] >> 8);
 
 						if (pad->mode != MODE_ANALOG) /* DS2 native */
 						{

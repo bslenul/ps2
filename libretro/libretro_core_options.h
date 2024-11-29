@@ -11,6 +11,16 @@
 #include "libretro_core_options_intl.h"
 #endif
 
+#define PERCENT_0_50 \
+    { "0%", NULL },  { "1%", NULL },  { "2%", NULL },  { "3%", NULL },  { "4%", NULL },  { "5%", NULL },  { "6%", NULL }, \
+    { "7%", NULL },  { "8%", NULL },  { "9%", NULL }, { "10%", NULL }, { "11%", NULL }, { "12%", NULL }, { "13%", NULL }, \
+   { "14%", NULL }, { "15%", NULL }, { "16%", NULL }, { "17%", NULL }, { "18%", NULL }, { "19%", NULL }, { "20%", NULL }, \
+   { "21%", NULL }, { "22%", NULL }, { "23%", NULL }, { "24%", NULL }, { "25%", NULL }, { "26%", NULL }, { "27%", NULL }, \
+   { "28%", NULL }, { "29%", NULL }, { "30%", NULL }, { "31%", NULL }, { "32%", NULL }, { "33%", NULL }, { "34%", NULL }, \
+   { "35%", NULL }, { "36%", NULL }, { "37%", NULL }, { "38%", NULL }, { "39%", NULL }, { "40%", NULL }, { "41%", NULL }, \
+   { "42%", NULL }, { "43%", NULL }, { "44%", NULL }, { "45%", NULL }, { "46%", NULL }, { "47%", NULL }, { "48%", NULL }, \
+   { "49%", NULL }, { "50%", NULL }
+
 #define PERCENT_80_200 \
     { "80%", NULL },  { "81%", NULL },  { "82%", NULL },  { "83%", NULL },  { "84%", NULL },  { "85%", NULL },  { "86%", NULL }, \
     { "87%", NULL },  { "88%", NULL },  { "89%", NULL },  { "90%", NULL },  { "91%", NULL },  { "92%", NULL },  { "93%", NULL }, \
@@ -862,6 +872,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "disabled"
    },
    {
+      "pcsx2_axis_deadzone1",
+      "Input > Port 1 > Analog Deadzone",
+      "Port 1 > Analog Deadzone",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_0_50,
+         { NULL, NULL },
+      },
+      "0%"
+   },
+   {
       "pcsx2_axis_scale1",
       "Input > Port 1 > Analog Sensitivity",
       "Port 1 > Analog Sensitivity",
@@ -873,6 +896,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { NULL, NULL },
       },
       "133%"
+   },
+   {
+      "pcsx2_axis_deadzone2",
+      "Input > Port 2 > Analog Deadzone",
+      "Port 2 > Analog Deadzone",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_0_50,
+         { NULL, NULL },
+      },
+      "0%"
    },
    {
       "pcsx2_axis_scale2",
@@ -888,6 +924,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "133%"
    },
    {
+      "pcsx2_axis_deadzone3",
+      "Input > Port 3 > Analog Deadzone",
+      "Port 3 > Analog Deadzone",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_0_50,
+         { NULL, NULL },
+      },
+      "0%"
+   },
+   {
       "pcsx2_axis_scale3",
       "Input > Port 3 > Analog Sensitivity",
       "Port 3 > Analog Sensitivity",
@@ -899,6 +948,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { NULL, NULL },
       },
       "133%"
+   },
+   {
+      "pcsx2_axis_deadzone4",
+      "Input > Port 4 > Analog Deadzone",
+      "Port 4 > Analog Deadzone",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_0_50,
+         { NULL, NULL },
+      },
+      "0%"
    },
    {
       "pcsx2_axis_scale4",
@@ -914,6 +976,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "133%"
    },
    {
+      "pcsx2_axis_deadzone5",
+      "Input > Port 5 > Analog Deadzone",
+      "Port 5 > Analog Deadzone",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_0_50,
+         { NULL, NULL },
+      },
+      "0%"
+   },
+   {
       "pcsx2_axis_scale5",
       "Input > Port 5 > Analog Sensitivity",
       "Port 5 > Analog Sensitivity",
@@ -925,6 +1000,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { NULL, NULL },
       },
       "133%"
+   },
+   {
+      "pcsx2_axis_deadzone6",
+      "Input > Port 6 > Analog Deadzone",
+      "Port 6 > Analog Deadzone",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_0_50,
+         { NULL, NULL },
+      },
+      "0%"
    },
    {
       "pcsx2_axis_scale6",
@@ -940,6 +1028,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "133%"
    },
    {
+      "pcsx2_axis_deadzone7",
+      "Input > Port 7 > Analog Deadzone",
+      "Port 7 > Analog Deadzone",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_0_50,
+         { NULL, NULL },
+      },
+      "0%"
+   },
+   {
       "pcsx2_axis_scale7",
       "Input > Port 7 > Analog Sensitivity",
       "Port 7 > Analog Sensitivity",
@@ -951,6 +1052,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { NULL, NULL },
       },
       "133%"
+   },
+   {
+      "pcsx2_axis_deadzone8",
+      "Input > Port 8 > Analog Deadzone",
+      "Port 8 > Analog Deadzone",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_0_50,
+         { NULL, NULL },
+      },
+      "0%"
    },
    {
       "pcsx2_axis_scale8",

@@ -137,6 +137,7 @@ enum Multitaps
 struct PadSettings
 {
 	float axis_scale = 1.33f;
+	u16 axis_deadzone;
 };
 
 extern PadSettings pad_settings[8];
