@@ -362,7 +362,8 @@ namespace Input
 				process_analog(pad_lx[ext_port], pad_ly[ext_port], conf.axis_scale, conf.axis_deadzone);
 				process_analog(pad_rx[ext_port], pad_ry[ext_port], conf.axis_scale, conf.axis_deadzone);
 
-				pads[port][slot].rumble(adjusted_port);
+				if (conf.rumble_scale > 0.0f)
+					pads[port][slot].rumble(conf.rumble_scale, adjusted_port);
 			}
 		}
 	}
@@ -416,18 +417,16 @@ void retro_set_controller_port_device(unsigned port, unsigned device)
 	}
 }
 
-#if 0
-void Device::DoRumble(unsigned type, unsigned pad)
+void DoRumble(u8 intensity, unsigned type, unsigned port)
 {
-	if (pad >= GAMEPAD_NUMBER)
-		return;
+	// 0..255 -> 0..65535
+	u16 scaled = (intensity << 8) | intensity;
 
 	if (type == 0)
-		rumble.set_rumble_state(pad, RETRO_RUMBLE_WEAK, 0xFFFF);
+		rumble.set_rumble_state(port, RETRO_RUMBLE_STRONG, scaled);
 	else
-		rumble.set_rumble_state(pad, RETRO_RUMBLE_STRONG, 0xFFFF);
+		rumble.set_rumble_state(port, RETRO_RUMBLE_WEAK, scaled);
 }
-#endif
 
 //////////////////////////////////////////////////////////////////////
 // Pad implementation
@@ -448,13 +447,17 @@ void Pad::reset()
 	vibrate[0]     = 0x5A;
 }
 
-void Pad::rumble(unsigned port)
+void Pad::rumble(float rumble_scale, unsigned port)
 {
 	if (nextVibrate[0] == currentVibrate[0] && nextVibrate[1] == currentVibrate[1])
 		return;
 
-	currentVibrate[0] = nextVibrate[0];
-	currentVibrate[1] = nextVibrate[1];
+	for (int i = 0; i < 2; ++i)
+	{
+		currentVibrate[i] = nextVibrate[i];
+		DoRumble(currentVibrate[i] * rumble_scale, i, port);
+	}
+	
 #if 0
 	InputManager::SetPadVibrationIntensity(port,
 		std::min(static_cast<float>(currentVibrate[0]) * g_key_status.m_vibration_scale[port][0] * (1.0f / 255.0f), 1.0f),

@@ -11,6 +11,11 @@
 #include "libretro_core_options_intl.h"
 #endif
 
+#define RUMBLE_OPTS \
+   { "disabled", NULL },  { "5%", NULL }, { "10%", NULL }, { "15%", NULL }, { "20%", NULL }, { "25%", NULL },  { "30%", NULL }, \
+        { "35%", NULL }, { "40%", NULL }, { "45%", NULL }, { "50%", NULL }, { "55%", NULL }, { "60%", NULL },  { "65%", NULL }, \
+        { "70%", NULL }, { "75%", NULL }, { "80%", NULL }, { "85%", NULL }, { "90%", NULL }, { "95%", NULL }, { "100%", NULL }
+
 #define PERCENT_0_50 \
     { "0%", NULL },  { "1%", NULL },  { "2%", NULL },  { "3%", NULL },  { "4%", NULL },  { "5%", NULL },  { "6%", NULL }, \
     { "7%", NULL },  { "8%", NULL },  { "9%", NULL }, { "10%", NULL }, { "11%", NULL }, { "12%", NULL }, { "13%", NULL }, \
@@ -898,6 +903,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "133%"
    },
    {
+      "pcsx2_enable_rumble1",
+      "Input > Port 1 > Rumble",
+      "Port 1 > Rumble",
+      NULL,
+      NULL,
+      "input",
+      {
+         RUMBLE_OPTS,
+         { NULL, NULL },
+      },
+      "100%"
+   },
+   {
       "pcsx2_axis_deadzone2",
       "Input > Port 2 > Analog Deadzone",
       "Port 2 > Analog Deadzone",
@@ -922,6 +940,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { NULL, NULL },
       },
       "133%"
+   },
+   {
+      "pcsx2_enable_rumble2",
+      "Input > Port 2 > Rumble",
+      "Port 2 > Rumble",
+      NULL,
+      NULL,
+      "input",
+      {
+         RUMBLE_OPTS,
+         { NULL, NULL },
+      },
+      "100%"
    },
    {
       "pcsx2_axis_deadzone3",
@@ -950,6 +981,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "133%"
    },
    {
+      "pcsx2_enable_rumble3",
+      "Input > Port 3 > Rumble",
+      "Port 3 > Rumble",
+      NULL,
+      NULL,
+      "input",
+      {
+         RUMBLE_OPTS,
+         { NULL, NULL },
+      },
+      "100%"
+   },
+   {
       "pcsx2_axis_deadzone4",
       "Input > Port 4 > Analog Deadzone",
       "Port 4 > Analog Deadzone",
@@ -974,6 +1018,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { NULL, NULL },
       },
       "133%"
+   },
+   {
+      "pcsx2_enable_rumble4",
+      "Input > Port 4 > Rumble",
+      "Port 4 > Rumble",
+      NULL,
+      NULL,
+      "input",
+      {
+         RUMBLE_OPTS,
+         { NULL, NULL },
+      },
+      "100%"
    },
    {
       "pcsx2_axis_deadzone5",
@@ -1002,6 +1059,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "133%"
    },
    {
+      "pcsx2_enable_rumble5",
+      "Input > Port 5 > Rumble",
+      "Port 5 > Rumble",
+      NULL,
+      NULL,
+      "input",
+      {
+         RUMBLE_OPTS,
+         { NULL, NULL },
+      },
+      "100%"
+   },
+   {
       "pcsx2_axis_deadzone6",
       "Input > Port 6 > Analog Deadzone",
       "Port 6 > Analog Deadzone",
@@ -1026,6 +1096,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { NULL, NULL },
       },
       "133%"
+   },
+   {
+      "pcsx2_enable_rumble6",
+      "Input > Port 6 > Rumble",
+      "Port 6 > Rumble",
+      NULL,
+      NULL,
+      "input",
+      {
+         RUMBLE_OPTS,
+         { NULL, NULL },
+      },
+      "100%"
    },
    {
       "pcsx2_axis_deadzone7",
@@ -1054,6 +1137,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "133%"
    },
    {
+      "pcsx2_enable_rumble7",
+      "Input > Port 7 > Rumble",
+      "Port 7 > Rumble",
+      NULL,
+      NULL,
+      "input",
+      {
+         RUMBLE_OPTS,
+         { NULL, NULL },
+      },
+      "100%"
+   },
+   {
       "pcsx2_axis_deadzone8",
       "Input > Port 8 > Analog Deadzone",
       "Port 8 > Analog Deadzone",
@@ -1078,6 +1174,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { NULL, NULL },
       },
       "133%"
+   },
+   {
+      "pcsx2_enable_rumble8",
+      "Input > Port 8 > Rumble",
+      "Port 8 > Rumble",
+      NULL,
+      NULL,
+      "input",
+      {
+         RUMBLE_OPTS,
+         { NULL, NULL },
+      },
+      "100%"
    },
    { NULL, NULL, NULL, NULL, NULL, NULL, {{0}}, NULL },
 };

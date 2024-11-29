@@ -322,6 +322,8 @@ static bool update_option_visibility(void)
 				option_display.visible = false;
 
 			option_display.key = input_settings;
+			snprintf(input_settings, sizeof(input_settings), "pcsx2_enable_rumble%d", i + 3);
+			environ_cb(RETRO_ENVIRONMENT_SET_CORE_OPTIONS_DISPLAY, &option_display);
 			snprintf(input_settings, sizeof(input_settings), "pcsx2_axis_deadzone%d", i + 3);
 			environ_cb(RETRO_ENVIRONMENT_SET_CORE_OPTIONS_DISPLAY, &option_display);
 			snprintf(input_settings, sizeof(input_settings), "pcsx2_axis_scale%d", i + 3);
@@ -1133,6 +1135,10 @@ static void check_variables(bool first_run)
 		snprintf(input_settings, sizeof(input_settings), "pcsx2_axis_deadzone%d", i + 1);
 		if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
 			pad_settings[i].axis_deadzone = atoi(var.value) * 32767 / 100;
+
+		snprintf(input_settings, sizeof(input_settings), "pcsx2_enable_rumble%d", i + 1);
+		if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
+			pad_settings[i].rumble_scale = atof(var.value) / 100;
 	}
 
 	update_option_visibility();

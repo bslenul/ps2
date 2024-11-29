@@ -88,7 +88,7 @@ struct PadFreezeData
 class Pad : public PadFreezeData
 {
 public:
-	void rumble(unsigned port);
+	void rumble(float rumble_scale, unsigned port);
 	void reset();
 
 	static void stop_vibrate_all();
@@ -136,7 +136,8 @@ enum Multitaps
 
 struct PadSettings
 {
-	float axis_scale = 1.33f;
+	float axis_scale   = 1.33f;
+	float rumble_scale = 1.0f;
 	u16 axis_deadzone;
 };
 
