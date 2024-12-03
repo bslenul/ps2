@@ -903,6 +903,38 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "133%"
    },
    {
+      "pcsx2_invert_left_stick1",
+      "Input > Port 1 > Invert Left Analog Axis",
+      "Port 1 > Invert Left Analog Axis",
+      NULL,
+      NULL,
+      "input",
+      {
+         { "disabled", NULL },
+         { "Left/Right", NULL },
+         { "Up/Down", NULL },
+         { "All", NULL },
+         { NULL, NULL },
+      },
+      "disabled"
+   },
+   {
+      "pcsx2_invert_right_stick1",
+      "Input > Port 1 > Invert Right Analog Axis",
+      "Port 1 > Invert Right Analog Axis",
+      NULL,
+      NULL,
+      "input",
+      {
+         { "disabled", NULL },
+         { "Left/Right", NULL },
+         { "Up/Down", NULL },
+         { "All", NULL },
+         { NULL, NULL },
+      },
+      "disabled"
+   },
+   {
       "pcsx2_enable_rumble1",
       "Input > Port 1 > Rumble",
       "Port 1 > Rumble",
@@ -940,6 +972,38 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { NULL, NULL },
       },
       "133%"
+   },
+   {
+      "pcsx2_invert_left_stick2",
+      "Input > Port 2 > Invert Left Analog Axis",
+      "Port 2 > Invert Left Analog Axis",
+      NULL,
+      NULL,
+      "input",
+      {
+         { "disabled", NULL },
+         { "Left/Right", NULL },
+         { "Up/Down", NULL },
+         { "All", NULL },
+         { NULL, NULL },
+      },
+      "disabled"
+   },
+   {
+      "pcsx2_invert_right_stick2",
+      "Input > Port 2 > Invert Right Analog Axis",
+      "Port 2 > Invert Right Analog Axis",
+      NULL,
+      NULL,
+      "input",
+      {
+         { "disabled", NULL },
+         { "Left/Right", NULL },
+         { "Up/Down", NULL },
+         { "All", NULL },
+         { NULL, NULL },
+      },
+      "disabled"
    },
    {
       "pcsx2_enable_rumble2",
@@ -981,6 +1045,38 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "133%"
    },
    {
+      "pcsx2_invert_left_stick3",
+      "Input > Port 3 > Invert Left Analog Axis",
+      "Port 3 > Invert Left Analog Axis",
+      NULL,
+      NULL,
+      "input",
+      {
+         { "disabled", NULL },
+         { "Left/Right", NULL },
+         { "Up/Down", NULL },
+         { "All", NULL },
+         { NULL, NULL },
+      },
+      "disabled"
+   },
+   {
+      "pcsx2_invert_right_stick3",
+      "Input > Port 3 > Invert Right Analog Axis",
+      "Port 3 > Invert Right Analog Axis",
+      NULL,
+      NULL,
+      "input",
+      {
+         { "disabled", NULL },
+         { "Left/Right", NULL },
+         { "Up/Down", NULL },
+         { "All", NULL },
+         { NULL, NULL },
+      },
+      "disabled"
+   },
+   {
       "pcsx2_enable_rumble3",
       "Input > Port 3 > Rumble",
       "Port 3 > Rumble",
@@ -1018,6 +1114,38 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { NULL, NULL },
       },
       "133%"
+   },
+   {
+      "pcsx2_invert_left_stick4",
+      "Input > Port 4 > Invert Left Analog Axis",
+      "Port 4 > Invert Left Analog Axis",
+      NULL,
+      NULL,
+      "input",
+      {
+         { "disabled", NULL },
+         { "Left/Right", NULL },
+         { "Up/Down", NULL },
+         { "All", NULL },
+         { NULL, NULL },
+      },
+      "disabled"
+   },
+   {
+      "pcsx2_invert_right_stick4",
+      "Input > Port 4 > Invert Right Analog Axis",
+      "Port 4 > Invert Right Analog Axis",
+      NULL,
+      NULL,
+      "input",
+      {
+         { "disabled", NULL },
+         { "Left/Right", NULL },
+         { "Up/Down", NULL },
+         { "All", NULL },
+         { NULL, NULL },
+      },
+      "disabled"
    },
    {
       "pcsx2_enable_rumble4",
@@ -1059,6 +1187,38 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "133%"
    },
    {
+      "pcsx2_invert_left_stick5",
+      "Input > Port 5 > Invert Left Analog Axis",
+      "Port 5 > Invert Left Analog Axis",
+      NULL,
+      NULL,
+      "input",
+      {
+         { "disabled", NULL },
+         { "Left/Right", NULL },
+         { "Up/Down", NULL },
+         { "All", NULL },
+         { NULL, NULL },
+      },
+      "disabled"
+   },
+   {
+      "pcsx2_invert_right_stick5",
+      "Input > Port 5 > Invert Right Analog Axis",
+      "Port 5 > Invert Right Analog Axis",
+      NULL,
+      NULL,
+      "input",
+      {
+         { "disabled", NULL },
+         { "Left/Right", NULL },
+         { "Up/Down", NULL },
+         { "All", NULL },
+         { NULL, NULL },
+      },
+      "disabled"
+   },
+   {
       "pcsx2_enable_rumble5",
       "Input > Port 5 > Rumble",
       "Port 5 > Rumble",
@@ -1096,6 +1256,38 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { NULL, NULL },
       },
       "133%"
+   },
+   {
+      "pcsx2_invert_left_stick6",
+      "Input > Port 6 > Invert Left Analog Axis",
+      "Port 6 > Invert Left Analog Axis",
+      NULL,
+      NULL,
+      "input",
+      {
+         { "disabled", NULL },
+         { "Left/Right", NULL },
+         { "Up/Down", NULL },
+         { "All", NULL },
+         { NULL, NULL },
+      },
+      "disabled"
+   },
+   {
+      "pcsx2_invert_right_stick6",
+      "Input > Port 6 > Invert Right Analog Axis",
+      "Port 6 > Invert Right Analog Axis",
+      NULL,
+      NULL,
+      "input",
+      {
+         { "disabled", NULL },
+         { "Left/Right", NULL },
+         { "Up/Down", NULL },
+         { "All", NULL },
+         { NULL, NULL },
+      },
+      "disabled"
    },
    {
       "pcsx2_enable_rumble6",
@@ -1137,6 +1329,38 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "133%"
    },
    {
+      "pcsx2_invert_left_stick7",
+      "Input > Port 7 > Invert Left Analog Axis",
+      "Port 7 > Invert Left Analog Axis",
+      NULL,
+      NULL,
+      "input",
+      {
+         { "disabled", NULL },
+         { "Left/Right", NULL },
+         { "Up/Down", NULL },
+         { "All", NULL },
+         { NULL, NULL },
+      },
+      "disabled"
+   },
+   {
+      "pcsx2_invert_right_stick7",
+      "Input > Port 7 > Invert Right Analog Axis",
+      "Port 7 > Invert Right Analog Axis",
+      NULL,
+      NULL,
+      "input",
+      {
+         { "disabled", NULL },
+         { "Left/Right", NULL },
+         { "Up/Down", NULL },
+         { "All", NULL },
+         { NULL, NULL },
+      },
+      "disabled"
+   },
+   {
       "pcsx2_enable_rumble7",
       "Input > Port 7 > Rumble",
       "Port 7 > Rumble",
@@ -1174,6 +1398,38 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { NULL, NULL },
       },
       "133%"
+   },
+   {
+      "pcsx2_invert_left_stick8",
+      "Input > Port 8 > Invert Left Analog Axis",
+      "Port 8 > Invert Left Analog Axis",
+      NULL,
+      NULL,
+      "input",
+      {
+         { "disabled", NULL },
+         { "Left/Right", NULL },
+         { "Up/Down", NULL },
+         { "All", NULL },
+         { NULL, NULL },
+      },
+      "disabled"
+   },
+   {
+      "pcsx2_invert_right_stick8",
+      "Input > Port 8 > Invert Right Analog Axis",
+      "Port 8 > Invert Right Analog Axis",
+      NULL,
+      NULL,
+      "input",
+      {
+         { "disabled", NULL },
+         { "Left/Right", NULL },
+         { "Up/Down", NULL },
+         { "All", NULL },
+         { NULL, NULL },
+      },
+      "disabled"
    },
    {
       "pcsx2_enable_rumble8",

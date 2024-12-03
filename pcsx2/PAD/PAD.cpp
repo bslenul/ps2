@@ -362,6 +362,12 @@ namespace Input
 				process_analog(pad_lx[ext_port], pad_ly[ext_port], conf.axis_scale, conf.axis_deadzone);
 				process_analog(pad_rx[ext_port], pad_ry[ext_port], conf.axis_scale, conf.axis_deadzone);
 
+				// Apply axis inversion (axis_invert_* being either 1 or -1)
+				pad_lx[ext_port] *= conf.axis_invert_lx;
+				pad_ly[ext_port] *= conf.axis_invert_ly;
+				pad_rx[ext_port] *= conf.axis_invert_rx;
+				pad_ry[ext_port] *= conf.axis_invert_ry;
+
 				if (conf.rumble_scale > 0.0f)
 					pads[port][slot].rumble(conf.rumble_scale, adjusted_port);
 			}

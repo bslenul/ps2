@@ -328,6 +328,10 @@ static bool update_option_visibility(void)
 			environ_cb(RETRO_ENVIRONMENT_SET_CORE_OPTIONS_DISPLAY, &option_display);
 			snprintf(input_settings, sizeof(input_settings), "pcsx2_axis_scale%d", i + 3);
 			environ_cb(RETRO_ENVIRONMENT_SET_CORE_OPTIONS_DISPLAY, &option_display);
+			snprintf(input_settings, sizeof(input_settings), "pcsx2_invert_left_stick%d", i + 3);
+			environ_cb(RETRO_ENVIRONMENT_SET_CORE_OPTIONS_DISPLAY, &option_display);
+			snprintf(input_settings, sizeof(input_settings), "pcsx2_invert_right_stick%d", i + 3);
+			environ_cb(RETRO_ENVIRONMENT_SET_CORE_OPTIONS_DISPLAY, &option_display);
 		}
 
 		updated   = true;
@@ -1139,6 +1143,56 @@ static void check_variables(bool first_run)
 		snprintf(input_settings, sizeof(input_settings), "pcsx2_enable_rumble%d", i + 1);
 		if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
 			pad_settings[i].rumble_scale = atof(var.value) / 100;
+
+		snprintf(input_settings, sizeof(input_settings), "pcsx2_invert_left_stick%d", i + 1);
+		if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
+		{
+			if (!strcmp(var.value, "disabled"))
+			{
+				pad_settings[i].axis_invert_lx = 1;
+				pad_settings[i].axis_invert_ly = 1;
+			}
+			else if (!strcmp(var.value, "Left/Right"))
+			{
+				pad_settings[i].axis_invert_lx = -1;
+				pad_settings[i].axis_invert_ly = 1;
+			}
+			else if (!strcmp(var.value, "Up/Down"))
+			{
+				pad_settings[i].axis_invert_lx = 1;
+				pad_settings[i].axis_invert_ly = -1;
+			}
+			else if (!strcmp(var.value, "All"))
+			{
+				pad_settings[i].axis_invert_lx = -1;
+				pad_settings[i].axis_invert_ly = -1;
+			}
+		}
+
+		snprintf(input_settings, sizeof(input_settings), "pcsx2_invert_right_stick%d", i + 1);
+		if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value)
+		{
+			if (!strcmp(var.value, "disabled"))
+			{
+				pad_settings[i].axis_invert_rx = 1;
+				pad_settings[i].axis_invert_ry = 1;
+			}
+			else if (!strcmp(var.value, "Left/Right"))
+			{
+				pad_settings[i].axis_invert_rx = -1;
+				pad_settings[i].axis_invert_ry = 1;
+			}
+			else if (!strcmp(var.value, "Up/Down"))
+			{
+				pad_settings[i].axis_invert_rx = 1;
+				pad_settings[i].axis_invert_ry = -1;
+			}
+			else if (!strcmp(var.value, "All"))
+			{
+				pad_settings[i].axis_invert_rx = -1;
+				pad_settings[i].axis_invert_ry = -1;
+			}
+		}
 	}
 
 	update_option_visibility();

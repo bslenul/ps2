@@ -138,6 +138,10 @@ struct PadSettings
 {
 	float axis_scale   = 1.33f;
 	float rumble_scale = 1.0f;
+	int axis_invert_lx = 1;
+	int axis_invert_ly = 1;
+	int axis_invert_rx = 1;
+	int axis_invert_ry = 1;
 	u16 axis_deadzone;
 };
 
