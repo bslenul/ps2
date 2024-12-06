@@ -143,6 +143,7 @@ struct PadSettings
 	int axis_invert_rx = 1;
 	int axis_invert_ry = 1;
 	u16 axis_deadzone;
+	u16 button_deadzone;
 };
 
 extern PadSettings pad_settings[8];

@@ -177,6 +177,7 @@ static int pad_lx[8];
 static int pad_ly[8];
 static int pad_rx[8];
 static int pad_ry[8];
+static u8 analog_buttons[8][12];
 
 PadSettings pad_settings[8];
 Multitaps multitaps;
@@ -200,6 +201,22 @@ static int keymap[] =
 	RETRO_DEVICE_ID_JOYPAD_RIGHT,  // PAD_RIGHT
 	RETRO_DEVICE_ID_JOYPAD_DOWN,   // PAD_DOWN
 	RETRO_DEVICE_ID_JOYPAD_LEFT,   // PAD_LEFT
+};
+
+enum AnalogButtons
+{
+	ANALOG_BTN_L2,
+	ANALOG_BTN_R2,
+	ANALOG_BTN_L1,
+	ANALOG_BTN_R1,
+	ANALOG_BTN_TRIANGLE, // X
+	ANALOG_BTN_CIRCLE,   // A
+	ANALOG_BTN_CROSS,    // B
+	ANALOG_BTN_SQUARE,   // Y
+	ANALOG_BTN_UP,
+	ANALOG_BTN_RIGHT,
+	ANALOG_BTN_DOWN,
+	ANALOG_BTN_LEFT,
 };
 
 static void process_analog(int &axis_x, int &axis_y, float sensitivity, u16 deadzone)
@@ -230,6 +247,34 @@ static void process_analog(int &axis_x, int &axis_y, float sensitivity, u16 dead
 	// Apply sensitivity
 	axis_x = static_cast<int>(std::clamp(axis_x * sensitivity, -MAX_RANGE, MAX_RANGE));
 	axis_y = static_cast<int>(std::clamp(axis_y * sensitivity, -MAX_RANGE, MAX_RANGE));
+}
+
+static u8 process_button(u16 deadzone, u32 port, int id, u32 mask)
+{
+	constexpr u16 MAX_RANGE = 32767;
+	u16 value = input_cb(port, RETRO_DEVICE_ANALOG, RETRO_DEVICE_INDEX_ANALOG_BUTTON, id);
+
+	// If value is 0, either it's really not pressed or
+	// the button is not analog, check if the bit is set
+	if (value == 0)
+	{
+		if (mask & (1 << id))
+			return 0xFF;
+		return 0;
+	}
+
+	// Apply deadzone
+	if (deadzone > 0)
+	{
+		if (value > deadzone)
+			// Scale the range
+			value = (value - deadzone) * MAX_RANGE / (MAX_RANGE - deadzone);
+		else
+			return 0;
+	}
+
+	// 0..32767 -> 0..255
+	return value >> 7;
 }
 
 namespace Input
@@ -347,10 +392,23 @@ namespace Input
 				u32 adjusted_port   = (multitaps == MTAP_2 && ext_port > 4) ? ext_port - 3 : ext_port;
 				u32 mask            = input_cb(adjusted_port, RETRO_DEVICE_JOYPAD, 0, RETRO_DEVICE_ID_JOYPAD_MASK);
 				u32 new_button_mask = 0xFFFF0000;
+				u32 btn_index       = 0;
 				const auto &conf    = pad_settings[adjusted_port];
 
-				for (int i = 0; i < 16; i++)
-					new_button_mask |= !(mask & (1 << keymap[i])) << i;
+				for (int i = 0; i < 16; ++i)
+				{
+					// Select, Start, L3 and R3 aren't pressure sensitive
+					if (keymap[i] == RETRO_DEVICE_ID_JOYPAD_SELECT || keymap[i] == RETRO_DEVICE_ID_JOYPAD_START ||
+							keymap[i] == RETRO_DEVICE_ID_JOYPAD_L3 || keymap[i] == RETRO_DEVICE_ID_JOYPAD_R3)
+						new_button_mask |= !(mask & (1 << keymap[i])) << i;
+					else
+					{
+						// Apply pressure level if needed/possible and deadzone
+						analog_buttons[ext_port][btn_index] = process_button(conf.button_deadzone, adjusted_port, keymap[i], mask);
+						new_button_mask |= (analog_buttons[ext_port][btn_index] == 0) << i;
+						++btn_index;
+					}
+				}
 
 				button_mask[ext_port] = new_button_mask;
 				pad_lx[ext_port]      = input_cb(adjusted_port, RETRO_DEVICE_ANALOG, RETRO_DEVICE_INDEX_ANALOG_LEFT, RETRO_DEVICE_ID_ANALOG_X);
@@ -718,18 +776,18 @@ u8 PADpoll(u8 value)
 						{
 							query.numBytes             = 21;
 
-							query.response[9]          = TEST_BIT(buttons, 13) ? 0 : 0xFF; /* Right */
-							query.response[10]         = TEST_BIT(buttons, 15) ? 0 : 0xFF; /* Left  */
-							query.response[11]         = TEST_BIT(buttons, 12) ? 0 : 0xFF; /* Up    */
-							query.response[12]         = TEST_BIT(buttons, 14) ? 0 : 0xFF; /* Down  */
-							query.response[13]         = TEST_BIT(buttons,  4) ? 0 : 0xFF; /* Triangle */
-							query.response[14]         = TEST_BIT(buttons,  5) ? 0 : 0xFF; /* Circle   */
-							query.response[15]         = TEST_BIT(buttons,  6) ? 0 : 0xFF; /* Cross    */
-							query.response[16]         = TEST_BIT(buttons,  7) ? 0 : 0xFF; /* Square   */
-							query.response[17]         = TEST_BIT(buttons,  2) ? 0 : 0xFF; /* L1       */
-							query.response[18]         = TEST_BIT(buttons,  3) ? 0 : 0xFF; /* R1       */
-							query.response[19]         = TEST_BIT(buttons,  0) ? 0 : 0xFF; /* L2       */
-							query.response[20]         = TEST_BIT(buttons,  1) ? 0 : 0xFF; /* R2       */
+							query.response[9]          = TEST_BIT(buttons, 13) ? 0 : analog_buttons[ext_port][ANALOG_BTN_RIGHT];
+							query.response[10]         = TEST_BIT(buttons, 15) ? 0 : analog_buttons[ext_port][ANALOG_BTN_LEFT];
+							query.response[11]         = TEST_BIT(buttons, 12) ? 0 : analog_buttons[ext_port][ANALOG_BTN_UP];
+							query.response[12]         = TEST_BIT(buttons, 14) ? 0 : analog_buttons[ext_port][ANALOG_BTN_DOWN];
+							query.response[13]         = TEST_BIT(buttons,  4) ? 0 : analog_buttons[ext_port][ANALOG_BTN_TRIANGLE];
+							query.response[14]         = TEST_BIT(buttons,  5) ? 0 : analog_buttons[ext_port][ANALOG_BTN_CIRCLE];
+							query.response[15]         = TEST_BIT(buttons,  6) ? 0 : analog_buttons[ext_port][ANALOG_BTN_CROSS];
+							query.response[16]         = TEST_BIT(buttons,  7) ? 0 : analog_buttons[ext_port][ANALOG_BTN_SQUARE];
+							query.response[17]         = TEST_BIT(buttons,  2) ? 0 : analog_buttons[ext_port][ANALOG_BTN_L1];
+							query.response[18]         = TEST_BIT(buttons,  3) ? 0 : analog_buttons[ext_port][ANALOG_BTN_R1];
+							query.response[19]         = TEST_BIT(buttons,  0) ? 0 : analog_buttons[ext_port][ANALOG_BTN_L2];
+							query.response[20]         = TEST_BIT(buttons,  1) ? 0 : analog_buttons[ext_port][ANALOG_BTN_R2];
 						}
 						else
 							query.numBytes             = 9;

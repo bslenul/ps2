@@ -890,6 +890,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "0%"
    },
    {
+      "pcsx2_button_deadzone1",
+      "Input > Port 1 > Trigger Deadzone",
+      "Port 1 > Trigger Deadzone",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_0_50,
+         { NULL, NULL },
+      },
+      "0%"
+   },
+   {
       "pcsx2_axis_scale1",
       "Input > Port 1 > Analog Sensitivity",
       "Port 1 > Analog Sensitivity",
@@ -951,6 +964,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "pcsx2_axis_deadzone2",
       "Input > Port 2 > Analog Deadzone",
       "Port 2 > Analog Deadzone",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_0_50,
+         { NULL, NULL },
+      },
+      "0%"
+   },
+   {
+      "pcsx2_button_deadzone2",
+      "Input > Port 2 > Trigger Deadzone",
+      "Port 2 > Trigger Deadzone",
       NULL,
       NULL,
       "input",
@@ -1032,6 +1058,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "0%"
    },
    {
+      "pcsx2_button_deadzone3",
+      "Input > Port 3 > Trigger Deadzone",
+      "Port 3 > Trigger Deadzone",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_0_50,
+         { NULL, NULL },
+      },
+      "0%"
+   },
+   {
       "pcsx2_axis_scale3",
       "Input > Port 3 > Analog Sensitivity",
       "Port 3 > Analog Sensitivity",
@@ -1093,6 +1132,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "pcsx2_axis_deadzone4",
       "Input > Port 4 > Analog Deadzone",
       "Port 4 > Analog Deadzone",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_0_50,
+         { NULL, NULL },
+      },
+      "0%"
+   },
+   {
+      "pcsx2_button_deadzone4",
+      "Input > Port 4 > Trigger Deadzone",
+      "Port 4 > Trigger Deadzone",
       NULL,
       NULL,
       "input",
@@ -1174,6 +1226,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "0%"
    },
    {
+      "pcsx2_button_deadzone5",
+      "Input > Port 5 > Trigger Deadzone",
+      "Port 5 > Trigger Deadzone",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_0_50,
+         { NULL, NULL },
+      },
+      "0%"
+   },
+   {
       "pcsx2_axis_scale5",
       "Input > Port 5 > Analog Sensitivity",
       "Port 5 > Analog Sensitivity",
@@ -1235,6 +1300,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "pcsx2_axis_deadzone6",
       "Input > Port 6 > Analog Deadzone",
       "Port 6 > Analog Deadzone",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_0_50,
+         { NULL, NULL },
+      },
+      "0%"
+   },
+   {
+      "pcsx2_button_deadzone6",
+      "Input > Port 6 > Trigger Deadzone",
+      "Port 6 > Trigger Deadzone",
       NULL,
       NULL,
       "input",
@@ -1316,6 +1394,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "0%"
    },
    {
+      "pcsx2_button_deadzone7",
+      "Input > Port 7 > Trigger Deadzone",
+      "Port 7 > Trigger Deadzone",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_0_50,
+         { NULL, NULL },
+      },
+      "0%"
+   },
+   {
       "pcsx2_axis_scale7",
       "Input > Port 7 > Analog Sensitivity",
       "Port 7 > Analog Sensitivity",
@@ -1377,6 +1468,19 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "pcsx2_axis_deadzone8",
       "Input > Port 8 > Analog Deadzone",
       "Port 8 > Analog Deadzone",
+      NULL,
+      NULL,
+      "input",
+      {
+         PERCENT_0_50,
+         { NULL, NULL },
+      },
+      "0%"
+   },
+   {
+      "pcsx2_button_deadzone8",
+      "Input > Port 8 > Trigger Deadzone",
+      "Port 8 > Trigger Deadzone",
       NULL,
       NULL,
       "input",
