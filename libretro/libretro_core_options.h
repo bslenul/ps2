@@ -878,7 +878,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "pcsx2_axis_deadzone1",
       "Input > Port 1 > Analog Deadzone",
       "Port 1 > Analog Deadzone",
-      NULL,
+      "Set the portion of the analog stick that will be ignored when moved, useful to counter drifting issues. NOTE: this will be applied on top of the deadzone set in the frontend's settings.",
       NULL,
       "input",
       {
@@ -891,7 +891,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "pcsx2_button_deadzone1",
       "Input > Port 1 > Trigger Deadzone",
       "Port 1 > Trigger Deadzone",
-      NULL,
+      "Set the portion of the trigger that will be ignored when pressed. NOTE: this will be applied on top of the deadzone set in the frontend's settings.",
       NULL,
       "input",
       {
@@ -904,7 +904,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "pcsx2_axis_scale1",
       "Input > Port 1 > Analog Sensitivity",
       "Port 1 > Analog Sensitivity",
-      NULL,
+      "Set the sensitivity scaling of the analog stick. NOTE: this will be applied on top of the sensitivity set in the frontend's settings.",
       NULL,
       "input",
       {
@@ -924,7 +924,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { "disabled", NULL },
          { "x_axis", "Left/Right" },
          { "y_axis", "Up/Down" },
-         { "all", "Up/Down and Left/Right" },
+         { "all", "Left/Right and Up/Down" },
          { NULL, NULL },
       },
       "disabled"
@@ -940,7 +940,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { "disabled", NULL },
          { "x_axis", "Left/Right" },
          { "y_axis", "Up/Down" },
-         { "all", "Up/Down and Left/Right" },
+         { "all", "Left/Right and Up/Down" },
          { NULL, NULL },
       },
       "disabled"
@@ -949,7 +949,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "pcsx2_enable_rumble1",
       "Input > Port 1 > Rumble",
       "Port 1 > Rumble",
-      NULL,
+      "Set the rumble strength, set to 0% to disable rumble entirely. NOTE #1: this will be applied on top of the rumble strength set in the frontend's settings. NOTE #2: rumble is not supported by all controller drivers.",
       NULL,
       "input",
       {
@@ -962,7 +962,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "pcsx2_axis_deadzone2",
       "Input > Port 2 > Analog Deadzone",
       "Port 2 > Analog Deadzone",
-      NULL,
+      "Set the portion of the analog sticks that will be ignored, useful to counter drifting issues. NOTE: this will be applied on top of the deadzone set in the frontend's settings.",
       NULL,
       "input",
       {
@@ -975,7 +975,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "pcsx2_button_deadzone2",
       "Input > Port 2 > Trigger Deadzone",
       "Port 2 > Trigger Deadzone",
-      NULL,
+      "Set the portion of the trigger that will be ignored when pressed. NOTE: this will be applied on top of the deadzone set in the frontend's settings.",
       NULL,
       "input",
       {
@@ -988,7 +988,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "pcsx2_axis_scale2",
       "Input > Port 2 > Analog Sensitivity",
       "Port 2 > Analog Sensitivity",
-      NULL,
+      "Set the sensitivity scaling of the analog stick. NOTE: this will be applied on top of the sensitivity set in the frontend's settings.",
       NULL,
       "input",
       {
@@ -1008,7 +1008,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { "disabled", NULL },
          { "x_axis", "Left/Right" },
          { "y_axis", "Up/Down" },
-         { "all", "Up/Down and Left/Right" },
+         { "all", "Left/Right and Up/Down" },
          { NULL, NULL },
       },
       "disabled"
@@ -1024,7 +1024,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
          { "disabled", NULL },
          { "x_axis", "Left/Right" },
          { "y_axis", "Up/Down" },
-         { "all", "Up/Down and Left/Right" },
+         { "all", "Left/Right and Up/Down" },
          { NULL, NULL },
       },
       "disabled"
@@ -1033,7 +1033,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       "pcsx2_enable_rumble2",
       "Input > Port 2 > Rumble",
       "Port 2 > Rumble",
-      NULL,
+      "Set the rumble strength, set to 0% to disable rumble entirely. NOTE #1: this will be applied on top of the rumble strength set in the frontend's settings. NOTE #2: rumble is not supported by all controller drivers.",
       NULL,
       "input",
       {
