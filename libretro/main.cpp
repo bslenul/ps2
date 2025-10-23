@@ -1680,12 +1680,6 @@ static bool libretro_select_hw_render(void)
 #else
 		retro_hw_context_type context_type = RETRO_HW_CONTEXT_NONE;
 		environ_cb(RETRO_ENVIRONMENT_GET_PREFERRED_HW_RENDER, &context_type);
-		/* FIXME: Software with vulkan does not work */
-		if (setting_renderer == "Software" && context_type == RETRO_HW_CONTEXT_VULKAN)
-		{
-			log_cb(RETRO_LOG_WARN, "Software does not work with Vulkan. Using fallback...\n");
-			goto fallback;
-		}
 #ifdef _WIN32
 		/* FIXME: Force D3D12 instead of D3D11 until D3D11 works properly */
 		if (context_type == RETRO_HW_CONTEXT_D3D11 && libretro_set_hw_render(RETRO_HW_CONTEXT_D3D12))
@@ -1719,7 +1713,6 @@ static bool libretro_select_hw_render(void)
 			return true;
 	}
 
-fallback:
 #ifdef _WIN32
 	if (libretro_set_hw_render(RETRO_HW_CONTEXT_D3D12))
 		return true;
@@ -1784,6 +1777,20 @@ bool create_device_vulkan(retro_vulkan_context *context, VkInstance instance, Vk
 	unsigned num_required_device_extensions, const char **required_device_layers, unsigned num_required_device_layers,
 	const VkPhysicalDeviceFeatures *required_features);
 const VkApplicationInfo *get_application_info_vulkan(void);
+
+static void initialize_vulkan_context(void)
+{
+	static const struct retro_hw_render_context_negotiation_interface_vulkan iface = {
+		RETRO_HW_RENDER_CONTEXT_NEGOTIATION_INTERFACE_VULKAN,
+		RETRO_HW_RENDER_CONTEXT_NEGOTIATION_INTERFACE_VULKAN_VERSION,
+		get_application_info_vulkan,
+		create_device_vulkan, // Callback above.
+		nullptr,
+	};
+	environ_cb(RETRO_ENVIRONMENT_SET_HW_RENDER_CONTEXT_NEGOTIATION_INTERFACE, (void*)&iface);
+	Vulkan::LoadVulkanLibrary();
+	vk_libretro_init_wraps();
+}
 #endif
 
 void retro_init(void)
@@ -1937,7 +1944,13 @@ bool retro_load_game(const struct retro_game_info* game)
 		return false;
 
 	if (setting_renderer == "Software")
+	{
 		s_settings_interface.SetIntValue("EmuCore/GS", "Renderer", (int)GSRendererType::SW);
+#ifdef ENABLE_VULKAN
+		if (hw_render.context_type == RETRO_HW_CONTEXT_VULKAN)
+			initialize_vulkan_context();
+#endif
+	}
 	else
 	{
 		switch (hw_render.context_type)
@@ -1969,18 +1982,7 @@ bool retro_load_game(const struct retro_game_info* game)
 #endif
 				{
 					s_settings_interface.SetIntValue("EmuCore/GS", "Renderer", (int)GSRendererType::VK);
-					{
-						static const struct retro_hw_render_context_negotiation_interface_vulkan iface = {
-							RETRO_HW_RENDER_CONTEXT_NEGOTIATION_INTERFACE_VULKAN,
-							RETRO_HW_RENDER_CONTEXT_NEGOTIATION_INTERFACE_VULKAN_VERSION,
-							get_application_info_vulkan,
-							create_device_vulkan, // Callback above.
-							nullptr,
-						};
-						environ_cb(RETRO_ENVIRONMENT_SET_HW_RENDER_CONTEXT_NEGOTIATION_INTERFACE, (void*)&iface);
-					}
-					Vulkan::LoadVulkanLibrary();
-					vk_libretro_init_wraps();
+					initialize_vulkan_context();
 				}
 				break;
 #endif
